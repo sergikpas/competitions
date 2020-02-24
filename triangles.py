@@ -1,4 +1,5 @@
 import time
+from fenwick_rmq import FenwickRange
 from math import ceil
 
 start = time.time()
@@ -10,14 +11,13 @@ c = [[0 for _ in range(6000)] for _ in range(3000)]
 A = [0 for _ in range(6000)]
 
 
-print ("aaa")
-r, cl = map(float, input().split(' '))
+r, cl = map(float, raw_input().split(' '))
 
 x = 3000
 
 i=1
 while (i-1) < r * 2-1:
-    row = input()
+    row = raw_input()
     if (i-1) % 2 == 0 and (i-1) % 4 != 0:
         row = row[2:]
     
@@ -64,7 +64,7 @@ while (i-1) < r * 2-1:
     # do shift
     if i % 4 == 0 and i != r * 2-1:
         x -=1
-print ("aa")
+
 '''
 print (a[0][2998:3002])
 print (a[1][2998:3002])
@@ -91,11 +91,15 @@ t = 0
 cl2 = (3000 + cl) - x
 #print (cl2)
 L = int(min(r,cl))
-#print ("L:", L, "X:", x)
-
-#print (int(r - 1), L + 1 - 1)
 
 
+for i in range(int(r)-1):
+    BITTree = FenwickRange(cl * 2)
+    for j in range(i, cl):
+        BITTree.add_range(i, i + c[j][i], 1)
+    for j in range(i, cl):
+        s += BITTree.get_sum(i)
+    
 
 
 # calculate height triangles
@@ -132,12 +136,6 @@ for l in range(1,L+1):
 
     t = s
 '''
-a = 0
-for i in range(2999):
-    for j in range(2999):
-        for m in range(l, i):
-            a +=1
-print (a)
         # A[i] == 0 
         # activiruem tochku = 1 
         # if D > bezhim po tochkam i zapolnjaem 1 
