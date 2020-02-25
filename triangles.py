@@ -8,7 +8,6 @@ s = 0
 a = [[0 for _ in range(6000)] for _ in range(3000)]
 b = [[0 for _ in range(6000)] for _ in range(3000)]
 c = [[0 for _ in range(6000)] for _ in range(3000)]
-A = [0 for _ in range(6000)]
 
 
 r, cl = map(float, raw_input().split(' '))
@@ -57,6 +56,7 @@ while (i-1) < r * 2-1:
 
     #print ("i:%s, x:%s, ri:%s - %s" % (i, x, ri, row)) 
     
+    
     if i == 1:
         cl = m
     
@@ -65,42 +65,52 @@ while (i-1) < r * 2-1:
     if i % 4 == 0 and i != r * 2-1:
         x -=1
 
-'''
-print (a[0][2998:3002])
-print (a[1][2998:3002])
-print (a[2][2998:3002])
-print (a[3][2998:3002])
-print (a[4][2998:3002])
+
+print (a[0][2999:3002])
+print (a[1][2999:3002])
+print (a[2][2999:3002])
+print (a[3][2999:3002])
+print (a[4][2999:3002])
 
 print 
-print (b[0][2998:3002])
-print (b[1][2998:3002])
-print (b[2][2998:3002])
-print (b[3][2998:3002])
-print (b[4][2998:3002])
+print (b[0][2999:3002])
+print (b[1][2999:3002])
+print (b[2][2999:3002])
+print (b[3][2999:3002])
+print (b[4][2999:3002])
 
 print 
-print (c[0][2998:3002])
-print (c[1][2998:3002])
-print (c[2][2998:3002])
-print (c[3][2998:3002])
-print (c[4][2998:3002])
-'''
+print (c[0][2999:3002])
+print (c[1][2999:3002])
+print (c[2][2999:3002])
+print (c[3][2999:3002])
+print (c[4][2999:3002])
+
+
+
 
 t = 0
 cl2 = (3000 + cl) - x
 #print (cl2)
 L = int(min(r,cl))
-
-
-for i in range(int(r)-1):
-    BITTree = FenwickRange(cl * 2)
-    for j in range(i, cl):
-        BITTree.add_range(i, i + c[j][i], 1)
-    for j in range(i, cl):
-        s += BITTree.get_sum(i)
+print ("General:", x, L,int(r)-1)
+s = 0
+for i in xrange(int(r)):
+    BITTree = FenwickRange(6000)
+    for j in xrange(cl2 + 1):
+        l = min(a[i][x + j], b[i][j + x])
+        print (x + j, i, a[i][x + j], b[i][j + x], l, c[i][j + x - l])
+        if c[i][j + x - l] >= l and l>0:
+            BITTree.add_range(j, j + l, 1)
+            print('triangle:', j, j + l)
+        #print (a[i][x + j], x + j)
+        #if a[i][j] > 0 and b[i][j] > 0:
+        #BITTree.add_range(j, j + c[i][j + x], 1)
+    for j in xrange(cl2 + 1):
+        s += BITTree.get_sum(j)
+    print ("Sum:%s" % s)
     
-
+print (s)
 
 # calculate height triangles
 '''
