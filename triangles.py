@@ -101,7 +101,7 @@ for i in xrange(int(r)):
         l = min(a[i][x + j], b[i][j + x])
         print (x + j, i, a[i][x + j], b[i][j + x], l, c[i][j + x - l])
         if c[i][j + x - l] >= l and l>0:
-            BITTree.add_range(j, j + l, 1)
+            BITTree.add_range(j+1, j + l, 1)
             print('triangle:', j, j + l)
         #print (a[i][x + j], x + j)
         #if a[i][j] > 0 and b[i][j] > 0:
