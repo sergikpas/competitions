@@ -88,92 +88,60 @@ print (c[2][2999:3003])
 
 print (x + int(r) + 1)
 #quit()
-'''
+
+
+
 BITTree = FenwickRange(6000)
-BITTree.add_range(2,2, 1)
-BITTree.add_range(3,3, 1)
+'''
+if A[1] == 0:
+    BITTree.add_range(1,4, 1)
+    A[1] = 1
+    
+if A[1] == 0:
+    BITTree.add_range(1,7, 1)
+    A[1] = 1
+
+
+if A[2] == 0:
+    BITTree.add_range(2,5, 1)
+''' 
+#BITTree.add_range(1,2, 1)
+#BITTree.add_range(3,3, 1)
 #BITTree.add_range(4,5, 1)
 
-print (BITTree.get_sum_range(2,2))
-quit()
-'''
+#print (BITTree.get_sum_range(1,1))
+
+
 t = 0
 cl2 = (3000 + cl) - x
 #print (cl2)
 L = int(min(r,cl))
-print ("General:", x, L,int(r)-1)
+print ("General:", x, cl2, L,int(r)-1)
 s = 0
 for i in xrange(int(r)):
     BITTree = FenwickRange(6000)
-    for j in xrange(cl2 + 1):
-        h = min(b[i][j + x], j)
-        print (j, a[i][j + x], b[i][j + x], h, c[i][j + x - h])
-        if  c[i][j + x - h] >= h and h>0:
-            print ("Triangle", j-h+1, j)
+    A = [0 for _ in range(6000)]
+    #print 
+    for j in xrange(cl2, -1, -1):
+        h = min(b[i][j + x], a[i][j + x])
+        #print (j, a[i][j + x], b[i][j + x], h, x-j, c[i][j + x - h])
+        #print (j, a[i][j + x],b[i][j + x])
+        if  c[i][j + x - h] >= h and h > 0 and A[j-h] == 0 and a[i][j+x] >= b[i][j + x]:
+            #print (i, "Triangle", j-h+1, j)
             BITTree.add_range(j-h+1, j, 1)
-        #print (x + j, i, a[i][x + j], b[i][j + x], l, c[i][j + x - l])
-        #if c[i][j + x - ] >= b[i][j + x] and l>0:
-        #   BITTree.add_range(j+1, j + l, 1)
-        #h = min(b[i][j + x], j)
-        #if c[i][j + x - cl2] >= h:
-        #    BITTree.add_range(j+1, h, 1)
-        #    print('triangle:', j+1, h)
-        #print (a[i][x + j], x + j)
-        #if a[i][j] > 0 and b[i][j] > 0:
-        #BITTree.add_range(j, j + c[i][j + x], 1)
-    # if i == 1:
-        # print (1,1,BITTree.get_sum_range(1,1))
-        # print (2,2,BITTree.get_sum_range(2,2))
-        # print (3,3,BITTree.get_sum_range(3,3))
-        # quit()
-    for j in xrange(cl2 + 1):
-        s += BITTree.get_sum_range(j,j)
+            A[j-h] = 1
         
+            
+    #print ('A:',A[0:cl2+1])
+    #print ('-----------------')
+    for j in xrange(cl2 + 1):
+        if b[i][j + x] > 0:
+            #print ('j:%s, Sum:%s' % (j,BITTree.get_sum_range(j,j)))
+            s += BITTree.get_sum_range(j,j)
        
     #print ("Sum:%s" % s)
 print (BITTree.get_sum_range(1,1))
-print (BITTree.get_sum_range(2,2))
-#print (s)
 
-# calculate height triangles
-'''
-
-Nlog3
-for l in range(1,L+1):
-    i = 0
-    #print (l,ceil((r-1) / l) )
-    while i <= r - l - 1:
-        j = 0
-        #print (l, i)
-        #if l == 2:
-        #    print(i)
-        while j <= cl2 -l-1:
-            #print ("\t%s" % j)
-            #print ("count")
-            #if l == 2:
-            #    print (i, j, x, l)
-            if a[i][int(j + x + l)] - a[i][int(j + x)] >=l and b[i+l][j+x] - b[i][j + x] >= l and c[i+l][j + x] - c[i][j +x +l]>=l:
-                #print (l,"found", "top -> bottom")
-                s +=1
-            #if l == 2:
-            #    print ("\t%s => x:%s, r:%s, a1:%s va2:%s, va1:%s, vb2:%s, vb1:%s, vc2:%s, vc1:%s" % (j, x, i + l, j + x, a[i + l][j + l +x], a[i + l][j + x], b[i+l][j+ x + l],b[i][j+ x + l], c[i+l][x+j],c[i][x + j +l]))
-            # bottom -> top
-            if a[i+l][int(j+x+l)] - a[i+l][int(j+x)]>=l and b[i+l][j+ x + l] - b[i][j + x + l] >= l and c[i+l][x+j] - c[i][x + j +l] >=l:
-                #print (l,"found", "bottom -> top")
-                s +=1
-
-            
-            j +=1
-        i +=1
-    
-
-    t = s
-'''
-        # A[i] == 0 
-        # activiruem tochku = 1 
-        # if D > bezhim po tochkam i zapolnjaem 1 
-        
-        # A[i] == 0 i mi prodolzhaem schitatj annuliruem
 
 #print (s)
 print ("Triangles: %s, execution: %s" % (s, time.time()-start))
