@@ -124,10 +124,10 @@ for i in xrange(int(r)):
     #print 
     for j in xrange(cl2, -1, -1):
         h = min(b[i][j + x], a[i][j + x])
-        print (j, h, a[i][j + x], b[i][j + x],  x-j, c[i][j + x - h])
+        print ("j:%s, h:%s, a:%s, b:%s, x-j:%s, c:%s" % (j, h, a[i][j + x], b[i][j + x],  x-j, c[i][j + x - h]))
         #print (j, a[i][j + x],b[i][j + x])
         if  c[i][j + x - h] >= h and h > 0 and A[j-h] == 0 and a[i][j+x] >= b[i][j + x]:
-            #print (i, "Triangle", j-h+1, j)
+            print ("\tTriangle: %s %s %s" % (i, j-h+1, j))
             BITTree.add_range(j-h+1, j, 1)
             A[j-h] = 1
         
@@ -135,8 +135,8 @@ for i in xrange(int(r)):
             BITTree.add_range(j, j+c[i][j + x], 1)
             A[j] = 1
             
-    print ('A:',A[0:cl2+1])
-    #print ('-----------------')
+    print ('A:%s' % (A[0:cl2+1]))
+    print ('-----------------')
     for j in xrange(cl2 + 1):
         if b[i][j + x] > 0 and a[i][j+x] > 0 and c[i][j - min(b[i][j + x], a[i][j + x]) + x] > 0:
             print ('j:%s, Sum:%s' % (j,BITTree.get_sum_range(j,j)))
