@@ -124,19 +124,22 @@ for i in xrange(int(r)):
     #print 
     for j in xrange(cl2, -1, -1):
         h = min(b[i][j + x], a[i][j + x])
-        #print (j, a[i][j + x], b[i][j + x], h, x-j, c[i][j + x - h])
+        print (j, h, a[i][j + x], b[i][j + x],  x-j, c[i][j + x - h])
         #print (j, a[i][j + x],b[i][j + x])
         if  c[i][j + x - h] >= h and h > 0 and A[j-h] == 0 and a[i][j+x] >= b[i][j + x]:
             #print (i, "Triangle", j-h+1, j)
             BITTree.add_range(j-h+1, j, 1)
             A[j-h] = 1
         
+        if A[j] == 0 and c[i][j + x] > 0:
+            BITTree.add_range(j, j+c[i][j + x], 1)
+            A[j] = 1
             
-    #print ('A:',A[0:cl2+1])
+    print ('A:',A[0:cl2+1])
     #print ('-----------------')
     for j in xrange(cl2 + 1):
-        if b[i][j + x] > 0:
-            #print ('j:%s, Sum:%s' % (j,BITTree.get_sum_range(j,j)))
+        if b[i][j + x] > 0 and a[i][j+x] > 0 and c[i][j - min(b[i][j + x], a[i][j + x]) + x] > 0:
+            print ('j:%s, Sum:%s' % (j,BITTree.get_sum_range(j,j)))
             s += BITTree.get_sum_range(j,j)
        
     #print ("Sum:%s" % s)
